@@ -1,0 +1,23 @@
+{
+  "name": "qa-automation-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node amazonlogin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shrey2511/qa-automation-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shrey2511/qa-automation-sample/issues"
+  },
+  "homepage": "https://github.com/Shrey2511/qa-automation-sample#readme",
+  "dependencies": {
+    "puppeteer": "^10.4.0"
+  }
+}
