@@ -4,6 +4,7 @@
   "description": "_Amazon login fuctionality is implementing_",
   "main": "amazonfeature.js",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "puppeteer": "^10.4.0"
   },
   "devDependencies": {},
