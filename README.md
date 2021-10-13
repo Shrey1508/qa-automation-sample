@@ -1,6 +1,6 @@
-# **Amazon Login Page**
+# **Amazon Login Page and Add to Cart**
 
-_Amazon login fuctionality is implementing_
+_Amazon login Product Add To Cart fuctionality is implementing_
 
 # Versions
 
@@ -16,4 +16,4 @@ v14.18.0
 
 10.4.0
 
-_In this we implmented the login functionality of Amazon.in using puppeteer_
+_In this we implmented the login and add to cart functionality of Amazon.in using puppeteer_
