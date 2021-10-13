@@ -2,6 +2,8 @@
 
 _Amazon login fuctionality is implementing_
 
+Script enterig username and password nd clicking on login button and user is redirected to home page of amazon
+
 # Versions
 
 ## Node
