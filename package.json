@@ -4,12 +4,15 @@
   "description": "_Amazon login fuctionality is implementing_",
   "main": "amazonfeature.js",
   "dependencies": {
+    "chai": "^4.3.4",
     "dotenv": "^10.0.0",
+    "mocha": "^9.1.2",
+    "npx": "^10.2.2",
     "puppeteer": "^10.4.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node amazonfeature.js"
+    "test": "./node_modules/mocha/bin/_mocha --timeout 30000 ./test"
   },
   "repository": {
     "type": "git",
