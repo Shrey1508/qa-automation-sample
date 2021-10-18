@@ -6,5 +6,11 @@ const login = {
   signIn: "input#signInSubmit",
 };
 
-//export default login;
-module.exports = { login: login };
+const addToCart = {
+  productlinks: `img.product-image`,
+  addbtn: "input#add-to-cart-button",
+  crtbtn: "div#nav-cart-count-container",
+  hbtn: "a#nav-logo-sprites",
+};
+
+module.exports = { login: login, addToCart: addToCart };
