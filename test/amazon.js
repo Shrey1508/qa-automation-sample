@@ -4,6 +4,7 @@ const LoginPage = require("./pages/LoginPage");
 
 var loginpage;
 let page;
+let browser;
 
 before(async () => {
   browser = await puppeteer.launch({

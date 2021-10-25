@@ -1,3 +1,5 @@
+const puppeteer = require("puppeteer");
+
 const HomePage = require("./pages/HomePage");
 const LoginPage = require("./pages/LoginPage");
 
@@ -5,8 +7,17 @@ describe("second describe block in puppeter", function () {
   let page;
   var homepage;
   var loginpage;
+  let browser;
 
   beforeEach(async () => {
+    browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: {
+        width: 1500,
+        height: 1000,
+      },
+      args: ["--start-fullscreen"],
+    });
     page = await browser.newPage();
     await page.goto("https://www.amazon.in/");
     loginpage = new LoginPage(page);
@@ -14,7 +25,6 @@ describe("second describe block in puppeter", function () {
   });
 
   after(async () => {
-    loginpage = new LoginPage(page);
     await loginpage.logOut();
   });
 
