@@ -1,6 +1,6 @@
 # **Amazon Login Page**
 
-_Amazon login fuctionality is implementing_
+Amazon login fuctionality is implementing
 
 Script enterig username and password nd clicking on login button and user is redirected to home page of amazon
 
@@ -18,4 +18,4 @@ v14.18.0
 
 10.4.0
 
-_In this we implmented the login functionality of Amazon.in using puppeteer_
+In this we implmented the login functionality of Amazon.in using puppeteer

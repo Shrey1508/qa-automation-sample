@@ -2,12 +2,12 @@ require("dotenv").config();
 
 const puppeteer = require("puppeteer");
 
-// let uname = process.env.UNAME;
-// let pas = process.env.PAS;
+let username = process.env.UNAME;
+let password = process.env.PAS;
 
 const login = {
   lgnbtn: "div.nav-line-1-container",
-  username: "input#ap_email",
+  email: "input#ap_email",
   cntbtn: "input#continue",
   pass: "input#ap_password",
   signIn: "input#signInSubmit",
@@ -18,10 +18,10 @@ const login = {
   const page = await browser.newPage();
   await page.goto("https://www.amazon.in/");
   await page.click(login.lgnbtn);
-  await page.waitForSelector(login.username);
-  await page.type(login.username, process.env.UNAME);
+  await page.waitForSelector(login.email);
+  await page.type(login.email, username);
   await page.click(login.cntbtn);
   await page.waitForSelector(login.pass);
-  await page.type(login.pass, process.env.PAS);
+  await page.type(login.pass, password);
   await page.click(login.signIn);
 })();
