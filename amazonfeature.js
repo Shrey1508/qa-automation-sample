@@ -18,6 +18,7 @@ const login = {
     const context = await browser.createIncognitoBrowserContext();
     const page = await context.newPage();
     await page.goto(BASE_URL);
+    await page.waitForSelector(login.lgnbtn);
     await page.click(login.lgnbtn, { setTimeout: 5000 });
     await page.waitForSelector(login.email);
     await page.type(login.email, USER_NAME);
@@ -29,13 +30,13 @@ const login = {
   };
 
   const chrome = await puppeteerchrome.launch({
-    headless: false,
+    headless: true,
   });
 
   await test(chrome);
 
   const firefox = await puppeteerfirefox.launch({
-    headless: false,
+    headless: true,
     args: ["-private"],
   });
 
