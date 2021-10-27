@@ -11,7 +11,7 @@ describe("second describe block in puppeter", function () {
 
   beforeEach(async () => {
     browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       defaultViewport: {
         width: 1500,
         height: 1000,
@@ -34,5 +34,8 @@ describe("second describe block in puppeter", function () {
     await homepage.clkOnProduct();
     await homepage.addCart();
     await homepage.clkOnCart();
+    await page.waitForTimeout(3000);
+    await page.screenshot({ path: "./images/cart.png" });
+    await page.pdf({ path: "./pdf/new1.pdf", format: "a4" });
   });
 });
