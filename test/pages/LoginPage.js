@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const { login } = require("./locators");
 
+const { USER_NAME, PASSWORD } = process.env;
+
 class LoginPage {
   constructor(page) {
     this.page = page;
@@ -13,13 +15,15 @@ class LoginPage {
 
   async typUserName() {
     await this.page.waitForSelector(login.username, { timeout: 3000 });
-    await this.page.type(login.username, process.env.UNAME, { timeout: 2000 });
+    await this.page.type(login.username, USER_NAME, {
+      timeout: 2000,
+    });
     await this.page.click(login.cntbtn);
   }
 
   async typePass() {
     await this.page.waitForSelector(login.pass, { timeout: 3000 });
-    await this.page.type(login.pass, process.env.PAS);
+    await this.page.type(login.pass, PASSWORD);
     await this.page.click(login.signIn);
   }
 

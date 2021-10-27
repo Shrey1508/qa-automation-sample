@@ -13,7 +13,7 @@ class HomePage {
     await this.page.waitForSelector(addToCart.productlinks);
     const product = await this.page.$$(addToCart.productlinks);
     await this.page.waitForTimeout(3000);
-    await product[1].click();
+    await product[0].click();
   }
 
   async addCart() {

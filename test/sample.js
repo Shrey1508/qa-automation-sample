@@ -26,6 +26,7 @@ describe("second describe block in puppeter", function () {
 
   after(async () => {
     await loginpage.logOut();
+    browser.close();
   });
 
   it("product add to cart", async () => {
