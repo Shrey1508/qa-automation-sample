@@ -1,7 +1,6 @@
 # **Add to Cart**
 
-_Amazon Add To Cart fuctionality is implementing_
-
+Amazon Add To Cart fuctionality is implementing
 scenario -
 
 1. go to amazon website
@@ -23,4 +22,4 @@ v14.18.0
 
 10.4.0
 
-_In this we implmented the add to cart functionality of Amazon.in using puppeteer_
+In this we implmented the add to cart functionality of Amazon.in using puppeteer
