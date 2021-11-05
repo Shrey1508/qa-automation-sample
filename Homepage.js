@@ -1,26 +1,55 @@
-const { addToCart } = require('./locators');
+const Utility = require('./Utility');
 
-class Homepage {
+const addToCart = {
+	searchbox: 'input#twotabsearchtextbox',
+	searchbtn: 'input#nav-search-submit-button',
+	productlinks: `//*[@class='product-image _deals-shoveler-v2_style_dealImage__3nlqg']`,
+	addbtn: 'input#add-to-cart-button',
+	crtbtn: 'div#nav-cart-count-container',
+	finalproductlinks: 'div.a-section.octopus-dlp-image-shield',
+	cart: 'span.nav-cart-count',
+	del: 'input.a-color-link',
+	hombtn: 'a#nav-logo-sprites'
+};
+
+var utility = new Utility();
+
+class HomePage {
 	constructor(page) {
 		this.page = page;
 	}
-	async homeProduct(page) {
-		await page.waitForXPath(addToCart.productlinks);
-		const product = await page.$x(addToCart.productlinks);
-		const random = Math.floor(Math.random() * (product.length - 1));
-		await page.waitForTimeout(2000);
-		await product[random].click();
-		await page.waitForTimeout(2000);
+	async homeProduct() {
+		await this.page.waitForXPath(addToCart.productlinks, { visible: true });
+		const product = await this.page.$x(addToCart.productlinks);
+		const ran = await utility.getrandom(product);
+		await this.page.waitForXPath(addToCart.productlinks);
+		await product[ran].click();
 	}
 
-	async mainProduct(page) {
-		const finalproduct = await page.$$(addToCart.finalproductlinks);
-		const finalrandom = Math.floor(Math.random() * finalproduct.length);
-		await finalproduct[finalrandom].click();
-		await page.waitForSelector(addToCart.addbtn);
-		await page.click(addToCart.addbtn);
-		await page.waitForSelector(addToCart.crtbtn);
-		await page.click(addToCart.crtbtn);
+	async mainProduct() {
+		await this.page.waitForSelector(addToCart.finalproductlinks, { visible: true });
+		const finalproduct = await this.page.$$('div.a-section.octopus-dlp-image-shield');
+		const fr = await utility.getrandomfinal(finalproduct);
+		await finalproduct[fr].click();
+		await this.page.waitForSelector(addToCart.addbtn);
+		await this.page.click(addToCart.addbtn);
+		await this.page.waitForSelector(addToCart.crtbtn);
+		await this.page.click(addToCart.crtbtn);
+	}
+
+	async cartWindow() {
+		await this.page.waitForSelector(addToCart.crtbtn);
+		await this.page.click(addToCart.crtbtn);
+	}
+
+	async emptyCart() {
+		await this.page.waitForSelector(addToCart.del);
+		await this.page.click(addToCart.del);
+		await this.page.waitForSelector(addToCart.hombtn);
+	}
+
+	async homebtn() {
+		await this.page.click(addToCart.hombtn);
 	}
 }
-module.exports = Homepage;
+module.exports = { HomePage, addToCart: addToCart };
