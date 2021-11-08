@@ -21,16 +21,16 @@ class HomePage {
 	async homeProduct() {
 		await this.page.waitForXPath(addToCart.productlinks, { visible: true });
 		const product = await this.page.$x(addToCart.productlinks);
-		const ran = await utility.getrandom(product);
+		const homeProductRandom = await utility.getRandom(product);
 		await this.page.waitForXPath(addToCart.productlinks);
-		await product[ran].click();
+		await product[homeProductRandom].click();
 	}
 
 	async mainProduct() {
 		await this.page.waitForSelector(addToCart.finalproductlinks, { visible: true });
 		const finalproduct = await this.page.$$('div.a-section.octopus-dlp-image-shield');
-		const fr = await utility.getrandomfinal(finalproduct);
-		await finalproduct[fr].click();
+		const mainProductRandom = await utility.getRandomFinal(finalproduct);
+		await finalproduct[mainProductRandom].click();
 		await this.page.waitForSelector(addToCart.addbtn);
 		await this.page.click(addToCart.addbtn);
 		await this.page.waitForSelector(addToCart.crtbtn);
@@ -48,8 +48,14 @@ class HomePage {
 		await this.page.waitForSelector(addToCart.hombtn);
 	}
 
-	async homebtn() {
+	async homeBtn() {
 		await this.page.click(addToCart.hombtn);
 	}
+
+	async cartValue() {
+		const text = await this.page.$eval(addToCart.cart, (element) => element.textContent);
+		const noofProducts = Number(text);
+		return noofProducts;
+	}
 }
-module.exports = { HomePage, addToCart: addToCart };
+module.exports = HomePage;

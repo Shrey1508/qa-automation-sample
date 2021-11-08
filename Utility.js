@@ -1,9 +1,9 @@
 class Utility {
-	async getrandom(product) {
+	async getRandom(product) {
 		const random = Math.floor(Math.random() * (product.length - 1));
 		return random;
 	}
-	async getrandomfinal(finalproduct) {
+	async getRandomFinal(finalproduct) {
 		const finalrandom = Math.floor(Math.random() * finalproduct.length);
 		return finalrandom;
 	}

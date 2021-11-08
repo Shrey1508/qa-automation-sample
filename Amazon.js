@@ -1,19 +1,26 @@
 require('dotenv').config();
 let { HEADLESS, WIDTH, HEIGHT } = process.env;
-const bool = HEADLESS === 'true';
 
 const puppeteer = require('puppeteer');
 const expect = require('chai').expect;
 const Loginpage = require('./Loginpage');
-const { HomePage, addToCart } = require('./Homepage');
+const HomePage = require('./Homepage');
 
 let page;
 var loginpage;
 var homepage;
 
+expect(true).to.satisfy(() => {
+	if (HEADLESS === 'true' || HEADLESS === 'false') {
+		return true;
+	} else {
+		console.log('Invalid Input(Put either true or false in HEADLESS)');
+	}
+});
+
 (async () => {
 	const browser = await puppeteer.launch({
-		headless: bool,
+		headless: HEADLESS === 'true',
 		defaultViewport: {
 			width: Number(WIDTH),
 			height: Number(HEIGHT)
@@ -26,26 +33,25 @@ var homepage;
 	homepage = new HomePage(page);
 
 	await loginpage.clkLoginBtn();
-	let text = await page.$eval(addToCart.cart, (element) => element.textContent);
-	let noofProducts = Number(text);
+	let productsInCart = await homepage.cartValue();
 
-	if (noofProducts === 0) {
+	if (productsInCart === 0) {
 		await homepage.homeProduct();
 		await homepage.mainProduct();
 	} else {
 		await homepage.cartWindow();
 
-		for (i = 0; i < noofProducts; i++) {
+		for (i = 0; i < productsInCart; i++) {
 			await homepage.emptyCart();
 		}
 
-		let text = await page.$eval(addToCart.cart, (element) => element.textContent);
-		expect(text).to.be.equal('0');
+		productsInCart = await homepage.cartValue();
+		expect(productsInCart).to.be.equal(0 && 1);
 
-		await homepage.homebtn();
+		await homepage.homeBtn();
 		await homepage.homeProduct();
 		await homepage.mainProduct();
 	}
 
-	//browser.close();
+	browser.close();
 })();
