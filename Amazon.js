@@ -7,20 +7,12 @@ const Loginpage = require('./Loginpage');
 const HomePage = require('./Homepage');
 
 let page;
-var loginpage;
-var homepage;
-
-expect(true).to.satisfy(() => {
-	if (HEADLESS === 'true' || HEADLESS === 'false') {
-		return true;
-	} else {
-		console.log('Invalid Input(Put either true or false in HEADLESS)');
-	}
-});
+let loginpage;
+let homepage;
 
 (async () => {
 	const browser = await puppeteer.launch({
-		headless: HEADLESS === 'true',
+		headless: JSON.parse(HEADLESS.toLowerCase()),
 		defaultViewport: {
 			width: Number(WIDTH),
 			height: Number(HEIGHT)
@@ -46,12 +38,14 @@ expect(true).to.satisfy(() => {
 		}
 
 		productsInCart = await homepage.cartValue();
-		expect(productsInCart).to.be.equal(0 && 1);
+		expect(productsInCart).to.be.equal(0);
 
 		await homepage.homeBtn();
 		await homepage.homeProduct();
 		await homepage.mainProduct();
 	}
+	productsInCart = await homepage.cartValue();
+	expect(productsInCart).to.be.greaterThan(0);
 
 	browser.close();
 })();
