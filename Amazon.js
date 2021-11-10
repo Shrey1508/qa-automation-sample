@@ -33,7 +33,7 @@ let homepage;
 	} else {
 		await homepage.cartWindow();
 
-		for (i = 0; i < productsInCart; i++) {
+		for (cartItem = 0; cartItem < productsInCart; cartItem++) {
 			await homepage.emptyCart();
 		}
 
@@ -45,7 +45,7 @@ let homepage;
 		await homepage.mainProduct();
 	}
 	productsInCart = await homepage.cartValue();
-	expect(productsInCart).to.be.greaterThan(0);
+	expect(productsInCart).to.be.equal(1);
 
 	browser.close();
 })();
