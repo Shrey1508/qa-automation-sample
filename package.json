@@ -1,25 +1,27 @@
 {
-  "name": "qa-automation-sample",
-  "version": "1.0.0",
-  "description": "Amazon login fuctionality is implementing",
-  "main": "amazonfeature.js",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "puppeteer": "^10.4.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "node amazonfeature.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/h2grover/qa-automation-sample.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/h2grover/qa-automation-sample/issues"
-  },
-  "homepage": "https://github.com/h2grover/qa-automation-sample#readme"
+	"name": "qa-automation-sample",
+	"version": "1.0.0",
+	"description": "Amazon Add To Cart fuctionality is implementing",
+	"main": "addToCart.js",
+	"dependencies": {
+		"chai": "^4.3.4",
+		"dotenv": "^10.0.0",
+		"mocha": "^9.1.3",
+		"puppeteer": "^10.4.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "node Amazon.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/h2grover/qa-automation-sample.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/h2grover/qa-automation-sample/issues"
+	},
+	"homepage": "https://github.com/h2grover/qa-automation-sample#readme"
 }
