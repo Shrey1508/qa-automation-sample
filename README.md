@@ -22,4 +22,4 @@ v14.18.0
 
 10.4.0
 
-In this we implmented the add to cart functionality of Amazon.in using puppeteer
+In this we implmented the login and add to cart functionality of Amazon.in using puppeteer

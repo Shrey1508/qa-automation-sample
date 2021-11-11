@@ -15,8 +15,7 @@ const addToCart = {
 	alldeals: 'a.a-link-normal.as-title-block-right.see-more.truncate-1line'
 };
 
-let product;
-let utility = new Utility();
+const utility = new Utility();
 
 class HomePage {
 	constructor(page) {
@@ -26,7 +25,7 @@ class HomePage {
 		await this.page.waitForSelector(addToCart.alldeals, { visible: true });
 		await this.page.click(addToCart.alldeals);
 		await this.page.waitForSelector(addToCart.productlinks, { visible: true });
-		product = await this.page.$$(addToCart.productlinks);
+		const product = await this.page.$$(addToCart.productlinks);
 		const homeProductRandom = await utility.getRandom(product);
 		await this.page.waitForSelector(addToCart.productlinks, { visible: true });
 		await product[homeProductRandom].click();
@@ -34,7 +33,7 @@ class HomePage {
 
 	async mainProduct() {
 		await this.page.waitForSelector(addToCart.finalproductlinks, { visible: true });
-		product = await this.page.$$(addToCart.finalproductlinks);
+		const product = await this.page.$$(addToCart.finalproductlinks);
 		const mainProductRandom = await utility.getRandom(product);
 		await product[mainProductRandom].click();
 		await this.page.waitForSelector(addToCart.allproducts);

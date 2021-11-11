@@ -14,8 +14,8 @@ let homepage;
 	const browser = await puppeteer.launch({
 		headless: JSON.parse(HEADLESS.toLowerCase()),
 		defaultViewport: {
-			width: Number(WIDTH),
-			height: Number(HEIGHT)
+			width: parseInt(WIDTH),
+			height: parseInt(HEIGHT)
 		},
 		args: [ '--start-fullscreen' ]
 	});
