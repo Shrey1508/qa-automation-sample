@@ -1,8 +1,12 @@
-# **Amazon Login Page**
+# **Add to Cart**
 
-_Amazon login fuctionality is implementing_
+Amazon Add To Cart fuctionality is implementing using MOCHA
+scenario -
 
-Script enterig username and password nd clicking on login button and user is redirected to home page of amazon
+1. go to amazon website
+2. search for any product
+3. click on any product
+4. add to cart
 
 # Versions
 
@@ -18,4 +22,5 @@ v14.18.0
 
 10.4.0
 
-_In this we implmented the login functionality of Amazon.in using puppeteer_
+In this we implmented the login functionality of Amazon.in using puppeteer
+
