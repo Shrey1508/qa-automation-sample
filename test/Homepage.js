@@ -42,6 +42,7 @@ class HomePage {
 		await this.page.click(addToCart.addbtn);
 		await this.page.waitForSelector(addToCart.crtbtn);
 		await this.page.click(addToCart.crtbtn);
+		await this.page.waitForSelector(addToCart.hombtn, { visible: true });
 	}
 
 	async cartWindow() {
