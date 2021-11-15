@@ -21,7 +21,7 @@ class HomePage {
 	constructor(page) {
 		this.page = page;
 	}
-	async homeProduct() {
+	async selectRandomHomeProduct() {
 		await this.page.waitForSelector(addToCart.alldeals, { visible: true });
 		await this.page.click(addToCart.alldeals);
 		await this.page.waitForSelector(addToCart.productlinks, { visible: true });
@@ -31,13 +31,16 @@ class HomePage {
 		await product[homeProductRandom].click();
 	}
 
-	async mainProduct() {
+	async selectRandomMainProduct() {
 		await this.page.waitForSelector(addToCart.finalproductlinks, { visible: true });
 		const product = await this.page.$$(addToCart.finalproductlinks);
 		const mainProductRandom = await utility.getRandom(product);
 		await product[mainProductRandom].click();
 		await this.page.waitForSelector(addToCart.allproducts);
 		await this.page.click(addToCart.allproducts);
+	}
+
+	async productAddToCart() {
 		await this.page.waitForSelector(addToCart.addbtn);
 		await this.page.click(addToCart.addbtn);
 		await this.page.waitForSelector(addToCart.crtbtn);
@@ -45,26 +48,40 @@ class HomePage {
 		await this.page.waitForSelector(addToCart.hombtn, { visible: true });
 	}
 
-	async cartWindow() {
+	async clickOnCartWindow() {
 		await this.page.waitForSelector(addToCart.crtbtn);
 		await this.page.click(addToCart.crtbtn);
 	}
 
-	async emptyCart() {
+	async delProduct() {
 		await this.page.waitForSelector(addToCart.del);
 		await this.page.click(addToCart.del);
 		await this.page.waitForSelector(addToCart.hombtn);
 	}
 
-	async homeBtn() {
+	async clkOnHomeBtn() {
 		await this.page.click(addToCart.hombtn);
 	}
 
-	async cartValue() {
+	async getCartValue() {
 		await this.page.waitForSelector(addToCart.cart, { visible: true });
 		const text = await this.page.$eval(addToCart.cart, (element) => element.textContent);
 		const noofProducts = Number(text);
 		return noofProducts;
+	}
+
+	async getText() {
+		await this.page.waitForSelector('span#productTitle', { visible: true });
+		const title = await this.page.$eval('span#productTitle', (el) => el.textContent);
+		return title;
+	}
+
+	async delProductByName(productName) {
+		await this.page.waitForSelector(addToCart.del);
+		const removeProductByName = await this.page.$x(
+			`//*[text()="` + productName + `"]/ancestor::div[4]//input[@value='Delete']`
+		);
+		await removeProductByName[0].click();
 	}
 }
 module.exports = HomePage;
