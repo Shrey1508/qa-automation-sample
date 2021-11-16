@@ -70,16 +70,22 @@ class HomePage {
 		return noofProducts;
 	}
 
-	async getText() {
+	async getTextWhileAddingProductToCart() {
 		await this.page.waitForSelector('span#productTitle', { visible: true });
 		const title = await this.page.$eval('span#productTitle', (el) => el.textContent);
 		return title;
 	}
 
+	async getTextProductInTheCart() {
+		await this.page.waitForSelector('span.a-truncate-cut', { visible: true });
+		const productTitle = await this.page.$eval('span.a-truncate-cut', (elmnt) => elmnt.textContent);
+		return productTitle;
+	}
+
 	async delProductByName(productName) {
 		await this.page.waitForSelector(addToCart.del);
 		const removeProductByName = await this.page.$x(
-			`//*[text()="` + productName + `"]/ancestor::div[4]//input[@value='Delete']`
+			`//*[text()="${productName}"]/ancestor::div[4]//input[@value='Delete']`
 		);
 		await removeProductByName[0].click();
 	}

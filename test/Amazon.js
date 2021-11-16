@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
 const expect = require('chai').expect;
 const Loginpage = require('./Loginpage');
 const HomePage = require('./Homepage');
+const assert = require('assert');
 
 let page;
 let loginpage;
@@ -12,6 +13,7 @@ let homepage;
 let browser;
 let productsInCart;
 const addedProductNames = [];
+const cartProductNames = [];
 
 before(async () => {
 	browser = await puppeteer.launch({
@@ -64,19 +66,21 @@ describe('first test in puppeter', function() {
 		for (let i = 0; i < 2; i++) {
 			await homepage.selectRandomHomeProduct();
 			await homepage.selectRandomMainProduct();
-			addedProductNames[i] = await homepage.getText();
+			addedProductNames[i] = await homepage.getTextWhileAddingProductToCart();
+			addedProductNames[i] = addedProductNames[i].slice(0, addedProductNames[i].length - 7).slice(8);
 			await homepage.productAddToCart();
+			cartProductNames[i] = await homepage.getTextProductInTheCart();
 			await homepage.clkOnHomeBtn();
+			assert.equal(cartProductNames[i].includes(addedProductNames[i]), true, 'Product is not added to cart');
 		}
 
 		await homepage.clickOnCartWindow();
 
-		await homepage.delProductByName(
-			'Vivo Y21 (Diamond Glow, 4GB RAM, 64GB Storage) with No Cost EMI/Additional Exchange Offers'
-		);
+		await homepage.delProductByName(cartProductNames[0]);
 		await page.waitForTimeout(2000);
 
 		productsInCart = await homepage.getCartValue();
-		expect(productsInCart).to.be.equal(1);
+
+		assert.equal(productsInCart, 1, 'your product is not deleted');
 	});
 });
