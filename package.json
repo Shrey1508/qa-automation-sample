@@ -12,7 +12,7 @@
 	},
 	"devDependencies": {},
 	"scripts": {
-		"test": "./node_modules/mocha/bin/_mocha --timeout 60000 ./test"
+		"test": "mocha --timeout 60000"
 	},
 	"repository": {
 		"type": "git",

@@ -11,9 +11,6 @@ let page;
 let loginpage;
 let homepage;
 let browser;
-let productsInCart;
-const addedProductNames = [];
-const cartProductNames = [];
 
 before(async () => {
 	browser = await puppeteer.launch({
@@ -47,10 +44,13 @@ afterEach('Cleaning up the cart', async () => {
 });
 
 describe('first test in puppeter', function() {
+	const addedProductNames = [];
+	const cartProductNames = [];
+
 	it('amazon login & 1 product add to cart', async () => {
 		await loginpage.clkLoginBtn();
 
-		productsInCart = await homepage.getCartValue();
+		let productsInCart = await homepage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
 
 		await homepage.selectRandomHomeProduct();
@@ -60,7 +60,7 @@ describe('first test in puppeter', function() {
 
 	it('2 products add to cart and 1 remove from cart', async () => {
 		await homepage.clkOnHomeBtn();
-		productsInCart = await homepage.getCartValue();
+		let productsInCart = await homepage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
 
 		for (let i = 0; i < 2; i++) {
@@ -71,16 +71,24 @@ describe('first test in puppeter', function() {
 			await homepage.productAddToCart();
 			cartProductNames[i] = await homepage.getTextProductInTheCart();
 			await homepage.clkOnHomeBtn();
-			assert.equal(cartProductNames[i].includes(addedProductNames[i]), true, 'Product is not added to cart');
+		}
+
+		assert.equal(addedProductNames.every(checkProduct), true, 'Product is not added to cart');
+
+		function checkProduct(addedProductName) {
+			return cartProductNames.includes(addedProductName);
 		}
 
 		await homepage.clickOnCartWindow();
 
 		await homepage.delProductByName(cartProductNames[0]);
-		await page.waitForTimeout(2000);
 
 		productsInCart = await homepage.getCartValue();
 
-		assert.equal(productsInCart, 1, 'your product is not deleted');
+		for (i = 0; i < productsInCart; i++) {
+			cartProductNames[i] = await homepage.getTextProductInTheCart();
+		}
+
+		assert.equal(addedProductNames.every(checkProduct), false, 'your product is not deleted');
 	});
 });
