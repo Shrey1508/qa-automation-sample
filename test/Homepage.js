@@ -12,7 +12,10 @@ const addToCart = {
 	del: 'input.a-color-link',
 	hombtn: 'a#nav-logo-sprites',
 	allproducts: 'div.a-section.octopus-dlp-image-shield',
-	alldeals: 'a.a-link-normal.as-title-block-right.see-more.truncate-1line'
+	alldeals: 'a.a-link-normal.as-title-block-right.see-more.truncate-1line',
+	productTitleWhileAdding: 'span#productTitle',
+	productTitleInCart: 'span.a-truncate-cut',
+	removeProductFromCart: (productName) => `//*[text()="${productName}"]/ancestor::div[4]//input[@value='Delete']`
 };
 
 const utility = new Utility();
@@ -71,22 +74,20 @@ class HomePage {
 	}
 
 	async getTextWhileAddingProductToCart() {
-		await this.page.waitForSelector('span#productTitle', { visible: true });
-		const title = await this.page.$eval('span#productTitle', (el) => el.textContent);
+		await this.page.waitForSelector(addToCart.productTitleWhileAdding, { visible: true });
+		const title = await this.page.$eval(addToCart.productTitleWhileAdding, (el) => el.textContent);
 		return title;
 	}
 
 	async getTextProductInTheCart() {
-		await this.page.waitForSelector('span.a-truncate-cut', { visible: true });
-		const productTitle = await this.page.$eval('span.a-truncate-cut', (elmnt) => elmnt.textContent);
+		await this.page.waitForSelector(addToCart.productTitleInCart, { visible: true });
+		const productTitle = await this.page.$eval(addToCart.productTitleInCart, (elmnt) => elmnt.textContent);
 		return productTitle;
 	}
 
 	async delProductByName(productName) {
 		await this.page.waitForSelector(addToCart.del);
-		const removeProductByName = await this.page.$x(
-			`//*[text()="${productName}"]/ancestor::div[4]//input[@value='Delete']`
-		);
+		const removeProductByName = await this.page.$x(addToCart.removeProductFromCart(productName));
 		await removeProductByName[0].click();
 	}
 }

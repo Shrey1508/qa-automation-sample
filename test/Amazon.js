@@ -81,13 +81,16 @@ describe('first test in puppeter', function() {
 
 		await homepage.clickOnCartWindow();
 
-		await homepage.delProductByName(cartProductNames[0]);
+		await homepage.delProductByName(cartProductNames[1]);
+
+		cartProductNames.length = 0;
 
 		productsInCart = await homepage.getCartValue();
-
 		for (i = 0; i < productsInCart; i++) {
 			cartProductNames[i] = await homepage.getTextProductInTheCart();
 		}
+
+		console.log(addedProductNames, cartProductNames);
 
 		assert.equal(addedProductNames.every(checkProduct), false, 'your product is not deleted');
 	});
