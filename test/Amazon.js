@@ -48,9 +48,6 @@ afterEach('Cleaning up the cart', async () => {
 });
 
 describe('first test in puppeter', function() {
-	const addedProductNames = [];
-	const cartProductNames = [];
-	const product = cartProductNames;
 	const utility = new Utility();
 
 	it('amazon login & 1 product add to cart', async () => {
@@ -59,18 +56,25 @@ describe('first test in puppeter', function() {
 		let productsInCart = await cartpage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
 
-		await homepage.selectRandomHomeProduct();
 		await homepage.selectRandomMainProduct();
+		let addedProductNames = await cartpage.getTextWhileAddingProductToCart();
+		addedProductNames = addedProductNames.slice(0, addedProductNames.length - 7).slice(8);
+
 		await cartpage.productAddToCart();
+		const cartProductNames = await cartpage.getTextProductInTheCart();
+
+		assert.equal(addedProductNames.includes(cartProductNames), true, 'Product is not added to cart');
 	});
 
 	it('2 products add to cart and 1 remove from cart', async () => {
+		let addedProductNames = [];
+		const cartProductNames = [];
+		const product = cartProductNames;
 		await cartpage.clkOnHomeBtn();
 		let productsInCart = await cartpage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
 
 		for (let i = 0; i < 2; i++) {
-			await homepage.selectRandomHomeProduct();
 			await homepage.selectRandomMainProduct();
 			addedProductNames[i] = await cartpage.getTextWhileAddingProductToCart();
 			addedProductNames[i] = addedProductNames[i].slice(0, addedProductNames[i].length - 7).slice(8);
@@ -78,11 +82,12 @@ describe('first test in puppeter', function() {
 			cartProductNames[i] = await cartpage.getTextProductInTheCart();
 			await cartpage.clkOnHomeBtn();
 		}
-		const productCheck = (addedProductName) => {
-			return cartProductNames.includes(addedProductName);
-		};
 
-		assert.equal(addedProductNames.every(productCheck), true, 'Product is not added to cart');
+		assert.equal(
+			addedProductNames.every((addedProductName) => cartProductNames.includes(addedProductName)),
+			true,
+			'Product is not added to cart'
+		);
 
 		await cartpage.clickOnCartWindow();
 
