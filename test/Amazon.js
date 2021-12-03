@@ -61,6 +61,7 @@ describe('first test in puppeter', function() {
 		addedProductNames = addedProductNames.slice(0, addedProductNames.length - 7).slice(8);
 
 		await cartpage.productAddToCart();
+		await cartpage.clickOnCartWindow();
 		const cartProductNames = await cartpage.getTextProductInTheCart();
 
 		assert.equal(addedProductNames.includes(cartProductNames), true, 'Product is not added to cart');
@@ -68,8 +69,8 @@ describe('first test in puppeter', function() {
 
 	it('2 products add to cart and 1 remove from cart', async () => {
 		let addedProductNames = [];
-		const cartProductNames = [];
-		const product = cartProductNames;
+		let cartProductNames;
+
 		await cartpage.clkOnHomeBtn();
 		let productsInCart = await cartpage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
@@ -79,9 +80,12 @@ describe('first test in puppeter', function() {
 			addedProductNames[i] = await cartpage.getTextWhileAddingProductToCart();
 			addedProductNames[i] = addedProductNames[i].slice(0, addedProductNames[i].length - 7).slice(8);
 			await cartpage.productAddToCart();
-			cartProductNames[i] = await cartpage.getTextProductInTheCart();
 			await cartpage.clkOnHomeBtn();
 		}
+
+		await cartpage.clickOnCartWindow();
+		cartProductNames = await cartpage.getTextProductInTheCart();
+		const product = cartProductNames;
 
 		assert.equal(
 			addedProductNames.every((addedProductName) => cartProductNames.includes(addedProductName)),

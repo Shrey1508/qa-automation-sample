@@ -17,8 +17,6 @@ class Cartpage {
 	async productAddToCart() {
 		await this.page.waitForSelector(addToCart.addbtn);
 		await this.page.click(addToCart.addbtn);
-		await this.page.waitForSelector(addToCart.crtbtn);
-		await this.page.click(addToCart.crtbtn);
 		await this.page.waitForSelector(Home.hombtn, { visible: true });
 	}
 
@@ -52,7 +50,9 @@ class Cartpage {
 
 	async getTextProductInTheCart() {
 		await this.page.waitForSelector(addToCart.productTitleInCart, { visible: true });
-		const productTitle = await this.page.$eval(addToCart.productTitleInCart, (elmnt) => elmnt.textContent);
+		const productTitle = await this.page.$$eval(addToCart.productTitleInCart, (elmnts) =>
+			elmnts.map((item) => item.textContent)
+		);
 		return productTitle;
 	}
 
