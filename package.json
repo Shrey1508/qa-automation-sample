@@ -1,7 +1,7 @@
 {
 	"name": "qa-automation-sample",
 	"version": "1.0.0",
-	"description": "_Amazon login fuctionality is implementing_",
+	"description": "Amazon login fuctionality is implementing",
 	"main": "Amazon.js",
 	"dependencies": {
 		"chai": "^4.3.4",
@@ -16,13 +16,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Shrey1508/qa-automation-sample.git"
+		"url": "git+https://github.com/h2grover/qa-automation-sample.git"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Shrey1508/qa-automation-sample/issues"
+		"url": "https://github.com/h2grover/qa-automation-sample/issues"
 	},
-	"homepage": "https://github.com/Shrey1508/qa-automation-sample#readme"
+	"homepage": "https://github.com/h2grover/qa-automation-sample#readme"
 }

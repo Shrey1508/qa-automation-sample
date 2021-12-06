@@ -9,7 +9,6 @@ const Cartpage = require('./Cartpage');
 const Utility = require('./Utility');
 const assert = require('assert');
 
-let page;
 let loginpage;
 let homepage;
 let cartpage;
@@ -24,7 +23,7 @@ before(async () => {
 		},
 		args: [ '--start-fullscreen' ]
 	});
-	page = await browser.newPage();
+	let page = await browser.newPage();
 
 	loginpage = new Loginpage(page);
 	homepage = new Homepage(page);
@@ -97,7 +96,7 @@ describe('first test in puppeter', function() {
 
 		const delRandom = await utility.getRandom(product);
 
-		const temp = cartProductNames[delRandom];
+		const deletedProduct = cartProductNames[delRandom];
 
 		await cartpage.delProductByName(cartProductNames[delRandom]);
 
@@ -108,6 +107,6 @@ describe('first test in puppeter', function() {
 			cartProductNames[i] = await cartpage.getTextProductInTheCart();
 		}
 
-		assert.equal(cartProductNames.includes(temp), false, 'your product is not deleted');
+		assert.equal(cartProductNames.includes(deletedProduct), false, 'your product is not deleted');
 	});
 });

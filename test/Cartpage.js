@@ -38,7 +38,7 @@ class Cartpage {
 	async getCartValue() {
 		await this.page.waitForSelector(addToCart.cart, { visible: true });
 		const text = await this.page.$eval(addToCart.cart, (element) => element.textContent);
-		const noofProducts = Number(text);
+		const noofProducts = parseInt(text);
 		return noofProducts;
 	}
 
