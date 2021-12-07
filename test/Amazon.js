@@ -28,6 +28,8 @@ before(async () => {
 	loginpage = new Loginpage(page);
 	homepage = new Homepage(page);
 	cartpage = new Cartpage(page);
+
+	await loginpage.clkLoginBtn();
 });
 
 after(() => {
@@ -50,8 +52,6 @@ describe('first test in puppeter', function() {
 	const utility = new Utility();
 
 	it('amazon login & 1 product add to cart', async () => {
-		await loginpage.clkLoginBtn();
-
 		let productsInCart = await cartpage.getCartValue();
 		expect(productsInCart).to.be.equal(0);
 
@@ -108,5 +108,8 @@ describe('first test in puppeter', function() {
 		}
 
 		assert.equal(cartProductNames.includes(deletedProduct), false, 'your product is not deleted');
+
+		const srcAttribute = await homepage.getSrcAttribute('a#nav-logo-sprites');
+		console.log(srcAttribute);
 	});
 });

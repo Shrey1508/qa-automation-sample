@@ -23,5 +23,10 @@ class Homepage {
 		const mainProductRandom = await utility.getRandom(product);
 		await product[mainProductRandom].click();
 	}
+
+	async getSrcAttribute(srcLocator) {
+		const src = await this.page.$eval(srcLocator, (links) => links.getAttribute('href'));
+		return src;
+	}
 }
 module.exports = { Homepage, Home: Home };
