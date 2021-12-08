@@ -57,7 +57,7 @@ describe('first test in puppeter', function() {
 
 		await homepage.selectRandomMainProduct();
 		let addedProductNames = await cartpage.getTextWhileAddingProductToCart();
-		addedProductNames = addedProductNames.slice(0, addedProductNames.length - 7).slice(8);
+		addedProductNames = await utility.getSlice(addedProductNames);
 
 		await cartpage.productAddToCart();
 		await cartpage.clickOnCartWindow();
@@ -77,7 +77,7 @@ describe('first test in puppeter', function() {
 		for (let i = 0; i < 2; i++) {
 			await homepage.selectRandomMainProduct();
 			addedProductNames[i] = await cartpage.getTextWhileAddingProductToCart();
-			addedProductNames[i] = addedProductNames[i].slice(0, addedProductNames[i].length - 7).slice(8);
+			addedProductNames[i] = await utility.getSlice(addedProductNames[i]);
 			await cartpage.productAddToCart();
 			await cartpage.clkOnHomeBtn();
 		}
