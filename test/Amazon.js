@@ -84,7 +84,6 @@ describe('first test in puppeter', function() {
 
 		await cartpage.clickOnCartWindow();
 		cartProductNames = await cartpage.getTextProductInTheCart();
-		const product = cartProductNames;
 
 		assert.equal(
 			addedProductNames.every((addedProductName) => cartProductNames.includes(addedProductName)),
@@ -94,22 +93,14 @@ describe('first test in puppeter', function() {
 
 		await cartpage.clickOnCartWindow();
 
-		const delRandom = await utility.getRandom(product);
+		const delRandom = await utility.getRandom(cartProductNames);
 
 		const deletedProduct = cartProductNames[delRandom];
 
-		await cartpage.delProductByName(cartProductNames[delRandom]);
+		await cartpage.delProductByName(deletedProduct);
 
-		cartProductNames.length = 0;
-
-		productsInCart = await cartpage.getCartValue();
-		for (i = 0; i < productsInCart; i++) {
-			cartProductNames[i] = await cartpage.getTextProductInTheCart();
-		}
+		cartProductNames = await cartpage.getTextProductInTheCart();
 
 		assert.equal(cartProductNames.includes(deletedProduct), false, 'your product is not deleted');
-
-		const srcAttribute = await homepage.getSrcAttribute('a#nav-logo-sprites');
-		console.log(srcAttribute);
 	});
 });
